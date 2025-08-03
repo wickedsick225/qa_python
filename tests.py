@@ -1,7 +1,7 @@
+import pytest
+
 from main import BooksCollector
 
-# класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
-# обязательно указывать префикс Test
 class TestBooksCollector:
 
 
@@ -14,6 +14,12 @@ class TestBooksCollector:
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
         assert len(collector.get_books_rating()) == 2
+
+    def test_add_new_book_add_two_books(self, collector):
+        collector.add_new_book('Гордость и предубеждение и зомби')
+        collector.add_new_book('Что делать, если ваш кот хочет вас убить')
+        assert len(collector.get_books_genre()) == 2
+
 
 
     @pytest.mark.parametrize('name', ['', 'a'*41])
@@ -48,17 +54,22 @@ class TestBooksCollector:
     def test_get_books_for_children(self, collector):
         collector.add_new_book('Недетская книга')
         collector.set_book_genre('Недетская книга','Ужасы')
+
         assert 'Недетская книга' not in collector.get_books_for_children
+
+        assert 'Недетская книга' not in collector.get_books_for_children()
 
 
     def test_add_book_in_favorites(self, collector):
         collector.add_new_book('Любимая книга')
         collector.favorites.append('Любимая книга')
+        collector.add_book_in_favorites('Любимая книга')
         assert 'Любимая книга' in collector.get_list_of_favorites_books()
 
 
     def test_add_book_in_favorites_nonexistent_book(self, collector):
         collector.faborites.append('Жеребенок')
+        collector.add_book_in_favorites('Жеребенок')
         assert 'Жеребенок' not in collector.get_list_of_favorites_books()
 
 
