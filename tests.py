@@ -1,17 +1,18 @@
+import pytest
+
 from main import BooksCollector
 
 class TestBooksCollector:
-
-
-    @pytest.fixture
-    def collector(self):
-        return BooksCollector()
-
 
     def test_add_new_book_add_two_books(self, collector):
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
         assert len(collector.get_books_rating()) == 2
+
+
+    def test_add_new_book_one_book(self, collector):
+        collector.add_new_book('Новая книга')
+	assert 'Новая книга' in collector.books_genre
 
 
 
