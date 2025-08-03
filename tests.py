@@ -24,22 +24,6 @@ class TestBooksCollector:
         assert collector.get_book_genre('Книга') == 'Фантастика'
 
 
-    def test_set_book_genre_nonexistent_book(self,collector):
-        collector.set_book_genre('Несуществующая книга','Фантастика')
-        assert collector.get_book_genre('Несуществующая книга') is None
-
-
-    def test_get_books_with_specific_genre(self, collector):
-        collector.add_new_book('Фантастическая книга')
-        collector.set_book_genre('Фантастическая книга', 'Фантастика')
-        assert 'Фантастическая книга' in collector.get_books_with_specific_genre('Фантастика')
-
-
-    def test_get_books_for_children(self, collector):
-        collector.add_new_book('Детская книга')
-        collector.set_book_genre('Детская книга','Мультфильмы')
-        assert 'Детская книга' in collector.get_books_for_children()
-
 
     def test_get_books_for_children(self, collector):
         collector.add_new_book('Недетская книга')
@@ -49,7 +33,7 @@ class TestBooksCollector:
 
     def test_add_book_in_favorites(self, collector):
         collector.add_new_book('Любимая книга')
-        collector.favorites.append('Любимая книга')
+        collector.add_book_in_favorites('Любимая книга')
         assert 'Любимая книга' in collector.get_list_of_favorites_books()
 
 
@@ -63,3 +47,17 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Исчезнувшая')
         collector.delete_book_from_favorites('Исчезнувшая')
         assert 'Исчезнувшая' not in collector.get_list_of_favorites_books()
+    def test_set_book_genre_nonexistent_book(self,collector):
+        assert 'Детская книга' in collector.get_books_for_children()
+        collector.set_book_genre('Несуществующая книга','Фантастика')
+        assert collector.get_book_genre('Несуществующая книга') is None
+        collector.set_book_genre('Детская книга','Мультфильмы')
+
+
+        collector.add_new_book('Детская книга')
+    def test_get_books_with_specific_genre(self, collector):
+        collector.add_new_book('Фантастическая книга')
+    def test_get_books_for_children(self, collector):
+        collector.set_book_genre('Фантастическая книга', 'Фантастика')
+        assert 'Фантастическая книга' in collector.get_books_with_specific_genre('Фантастика')
+
