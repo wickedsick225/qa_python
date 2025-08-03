@@ -47,3 +47,19 @@ class TestBooksCollector:
         assert 'Недетская книга' not in collector.get_books_for_children()
 
 
+    def test_add_book_in_favorites(self, collector):
+        collector.add_new_book('Любимая книга')
+        collector.favorites.append('Любимая книга')
+        assert 'Любимая книга' in collector.get_list_of_favorites_books()
+
+
+    def test_add_book_in_favorites_nonexistent_book(self, collector):
+        collector.add_book_in_favorites('Жеребенок')
+        assert 'Жеребенок' not in collector.get_list_of_favorites_books()
+
+
+    def test_delete_book_from_favorites(self, collector):
+        collector.add_new_book('Исчезнувшая')
+        collector.add_book_in_favorites('Исчезнувшая')
+        collector.delete_book_from_favorites('Исчезнувшая')
+        assert 'Исчезнувшая' not in collector.get_list_of_favorites_books()
