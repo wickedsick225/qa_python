@@ -29,8 +29,6 @@ class TestBooksCollector:
         collector.set_book_genre('Фантастическая книга', 'Фантастика')
         assert 'Фантастическая книга' in collector.get_books_with_specific_genre('Фантастика')
 
-<<<<<<< HEAD
-=======
     def test_get_child_friendly_books_included(self, collector):
         collector.add_new_book('Детская книга')
         collector.set_book_genre('Детская книга', 'Мультфильмы')
@@ -55,4 +53,3 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Исчезнувшая')
         collector.delete_book_from_favorites('Исчезнувшая')
         assert 'Исчезнувшая' not in collector.get_list_of_favorites_books()
->>>>>>> develop
